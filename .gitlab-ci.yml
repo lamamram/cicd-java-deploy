@@ -11,7 +11,9 @@ deploy:
     - >
       keytool 
       -import 
-      -trustcacerts 
+      -trustcacerts
+      -storepass changeit 
+      -noprompt
       -alias my-gitlab 
       -file /usr/local/share/ca-certificates/gitlab.myusine.fr.pem 
       -keystore "$JAVA_HOME/lib/security/cacerts"

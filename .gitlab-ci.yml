@@ -36,13 +36,13 @@ install:
     paths: 
       - .m2/repository/com/example/rest-service-complete/0.0.1-SNAPSHOT/rest-service-complete-0.0.1-SNAPSHOT.war
 
-.upload:
+upload:
   stage: package
   tags: [myusine]
   script:
     - >
       curl --header "JOB-TOKEN: $CI_JOB_TOKEN" 
-      --upload-file path/to/file.txt 
+      --upload-file .m2/repository/com/example/rest-service-complete/0.0.1-SNAPSHOT/rest-service-complete-0.0.1-SNAPSHOT.war
       "${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/generic/rest-service-complete-0.0.1.war"
   
   

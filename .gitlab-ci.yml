@@ -32,7 +32,7 @@ install:
   script:
     - mvn clean install
   artifacts:
-    expire_in: "1O minutes"
+    expire_in: "10 minutes"
     paths: 
       - .m2/repository/com/example/rest-service-complete/0.0.1-SNAPSHOT/rest-service-complete-0.0.1-SNAPSHOT.war
 

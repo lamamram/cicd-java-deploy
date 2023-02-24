@@ -1,0 +1,12 @@
+image: maven:3.8.7-eclipse-temurin-17-focal
+
+stages:
+  - package
+
+deploy:
+  stage: package
+  tags:
+    - myusine
+  script:
+    - mvn deploy -s ci_settings.xml
+  

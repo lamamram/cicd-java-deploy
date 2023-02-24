@@ -20,6 +20,5 @@ deploy:
   tags:
     - myusine
   script:
-    - echo "OK"
-    # - mvn deploy -s ci_settings.xml
+    - mvn deploy -s ci_settings.xml
   

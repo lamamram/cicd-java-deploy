@@ -7,6 +7,7 @@ stages:
 variables:
   MAVEN_OPTS: -Dmaven.repo.local=.m2/repository
 
+# création du .war en local
 install:
   stage: install
   tags: [myusine]
@@ -17,6 +18,8 @@ install:
     paths: 
       - .m2/repository/com/example/rest-service-complete/0.0.1-SNAPSHOT/rest-service-complete-0.0.1-SNAPSHOT.war
 
+# upload du .war sur le genereic package registry
+# -k: ne pas vérifier le certificat (maquette -> auto-signé)
 upload:
   stage: package
   tags: [myusine]
@@ -26,7 +29,8 @@ upload:
       -k
       --upload-file .m2/repository/com/example/rest-service-complete/0.0.1-SNAPSHOT/rest-service-complete-0.0.1-SNAPSHOT.war
       "${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/generic/rest-service-complete/0.0.1/rest-service-complete-0.0.1.war"
-  
+
+# $GITLAB_ROOT_CA: certificat auto-signé récupéré depuis le navigateur  
 .deploy:
   stage: package
   before_script:

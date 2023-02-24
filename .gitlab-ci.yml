@@ -25,7 +25,7 @@ upload:
       curl --header "JOB-TOKEN: $CI_JOB_TOKEN" 
       -k
       --upload-file .m2/repository/com/example/rest-service-complete/0.0.1-SNAPSHOT/rest-service-complete-0.0.1-SNAPSHOT.war
-      "${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/generic/rest-service-complete-0.0.1.war"
+      "${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/generic/rest-service-complete/0.0.1/rest-service-complete-0.0.1.war"
   
 .deploy:
   stage: package

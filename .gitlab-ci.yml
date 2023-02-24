@@ -5,6 +5,16 @@ stages:
 
 deploy:
   stage: package
+  before_script:
+    - echo "$GITLAB_ROOT_CA" > /usr/local/share/ca-certificates/gitlab.myusine.fr.pem
+    - update-ca-certificates
+    - >
+      keytool 
+      -import 
+      -trustcacerts 
+      -alias my-gitlab 
+      -file /usr/local/share/ca-certificates/gitlab.myusine.fr.pem 
+      -keystore "$JAVA_HOME/lib/security/cacerts"
   tags:
     - myusine
   script:

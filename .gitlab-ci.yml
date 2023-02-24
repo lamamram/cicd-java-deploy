@@ -1,9 +1,13 @@
 image: maven:3.8.7-eclipse-temurin-17-focal
 
 stages:
+  - install
   - package
 
-deploy:
+variables:
+  MAVEN_OPTS: -Dmaven.repo.local=.m2/repository
+
+.deploy:
   stage: package
   before_script:
     - echo "$GITLAB_ROOT_CA" > /usr/local/share/ca-certificates/gitlab.myusine.fr.pem
@@ -21,4 +25,24 @@ deploy:
     - myusine
   script:
     - mvn deploy -s ci_settings.xml
+
+install:
+  stage: install
+  tags: [myusine]
+  script:
+    - mvn clean install
+  artifacts:
+    expire_in: "1O minutes"
+    paths: 
+      - .m2/repository/com/example/rest-service-complete/0.0.1-SNAPSHOT/rest-service-complete-0.0.1-SNAPSHOT.war
+
+.upload:
+  stage: package
+  tags: [myusine]
+  script:
+    - >
+      curl --header "JOB-TOKEN: $CI_JOB_TOKEN" 
+      --upload-file path/to/file.txt 
+      "${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/generic/rest-service-complete-0.0.1.war"
+  
   
